@@ -1,31 +1,45 @@
-import { Action, createStore } from "redux";
-
+import { AnyAction, createStore } from "redux";
+import { HAPPY_BUTTON_CLICKED, SAD_BUTTON_CLICKED } from "./action";
+export type Moment = {
+  intensity: number;
+  when: Date;
+};
 export type State = {
-  sadCount: number;
-  happyCount: number;
+  sadMoments: Moment[];
+  happyMoments: Moment[];
 };
 const initialState = {
-  sadCount: 0,
-  happyCount: 0,
+  sadMoments: [],
+  happyMoments: [],
 };
 
-const reducer = (currentState: State = initialState, action: Action): State => {
-  if (action.type === "happy button clicked") {
-    return {
-      ...currentState,
-      happyCount: currentState.happyCount + 1,
-    };
-  } else if (action.type === "sad button clicked") {
-    return {
-      ...currentState,
-      sadCount: currentState.sadCount + 1,
-    };
+const reducer = (
+  currentState: State = initialState,
+  action: AnyAction
+): State => {
+  switch (action.type) {
+    case HAPPY_BUTTON_CLICKED:
+      return {
+        ...currentState,
+        happyMoments: [
+          ...currentState.happyMoments,
+          { intensity: action.payload.count, when: action.payload.when },
+        ],
+      };
+    case SAD_BUTTON_CLICKED:
+      return {
+        ...currentState,
+        sadMoments: [
+          ...currentState.sadMoments,
+          { intensity: action.payload.count, when: action.payload.when },
+        ],
+      };
+    default:
+      return currentState;
   }
-  return currentState;
 };
 
 export const store = createStore(
   reducer,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

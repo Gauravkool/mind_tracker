@@ -1,12 +1,16 @@
 import { FC, memo } from "react";
 import { useSelector } from "react-redux";
-import { sadCountSelector } from "./selectors";
+import { sadMomentsSelector } from "./selectors";
 type SadTrackerProps = {};
 const SadTracker: FC<SadTrackerProps> = (props) => {
-  const sadCount = useSelector(sadCountSelector);
+  const sadMoments = useSelector(sadMomentsSelector);
   return (
     <div className="bg-blue-700 text-white text-lg py-2 px-4">
-      You are sad {sadCount} times
+      {sadMoments.map((m, index) => (
+        <div key={index}>
+          Sadness Intensity: {m.intensity}, When: {new Date(m.when).toLocaleString()}
+        </div>
+      ))}
     </div>
   );
 };
