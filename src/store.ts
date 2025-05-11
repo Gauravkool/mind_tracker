@@ -1,26 +1,18 @@
-import { AnyAction, createStore } from "redux";
-import sadnessReducer, { initialSadState, SadState } from "./reducers/sadReducer";
-import happinessReducer, { HappyState, initialHappyState } from "./reducers/happyRecuder";
+import { combineReducers, createStore } from "redux";
+import sadnessReducer from "./reducers/sadReducer";
+import happinessReducer from "./reducers/happyRecuder";
 export type Moment = {
   intensity: number;
   when: Date;
 };
-export type State = {
-  sad: SadState;
-  happy: HappyState
-};
- 
-const initialState : State ={
-  sad: initialSadState,
-  happy: initialHappyState,
-}
 
-const reducer = (currentState = initialState, action: AnyAction ): State => {
-  return{
- sad: sadnessReducer(currentState.sad, action),
- happy: happinessReducer(currentState.happy, action),
-  }
-};
+
+const reducer = combineReducers({
+  sad: sadnessReducer,
+  happy: happinessReducer,
+})
+
+export type State = ReturnType<typeof reducer>;
 
 export const store = createStore(
   reducer,
