@@ -1,8 +1,8 @@
 import { State } from "./store";
 
 export const happyMomentsSelector = (state: State)=>{
-    return state.happyMoments;
+    return state.happy.happyMoments;
 }
 export const sadMomentsSelector = (state: State)=>{
-    return state.sadMoments;
+    return state.sad.sadMoments;
 }

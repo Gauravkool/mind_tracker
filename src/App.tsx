@@ -1,5 +1,6 @@
 import HappyIncrementor from "./HappyIncrementor";
 import HappyTracker from "./HappyTracker";
+import ProductsListPage from "./productsListPage";
 import SadIncrementor from "./SadIncrementor";
 import SadTracker from "./SadTracker";
 
@@ -10,6 +11,7 @@ function App() {
       <SadTracker/>
       <HappyIncrementor />
       <SadIncrementor/>
+      <ProductsListPage/>
     </div>
   );
 }
